@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Studio Pro - Developer Colors</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .color-box{ width:100%; height:100px; border-radius:15px; border:2px solid #fff; box-shadow:0 4px 15px rgba(0,0,0,0.1); }
+    .gradient-card{ height:120px; border-radius:15px; cursor:pointer; position:relative; transition:0.3s; }
+    .gradient-card:hover{ transform:scale(1.05); }
+    .gradient-card span{ position:absolute; bottom:8px; left:10px; background:rgba(0,0,0,0.6); color:#fff; padding:2px 8px; border-radius:20px; font-size:11px; }
+    #gradientPreview{ height:180px; border-radius:15px; border:2px solid #eee; }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../pages/about.html">ℹ️ About</a>
+    <a href="../pages/contact.html">📧 Contact</a>
+    <a href="../pages/privacy.html">🔒 Privacy</a>
+    <p class="small opacity-50 mt-3 mb-1">ALL TOOLS</p>
+    <a href="word-counter.html">📝 Word Counter</a>
+    <a href="case-converter.html">🔤 Case Converter</a>
+    <a href="password-generator.html">🔐 Password Generator</a>
+    <a href="stopwatch.html">⏱️ Stopwatch</a>
+    <a href="qr-generator.html">📱 QR Generator</a>
+    <a href="image-compressor.html">🖼️ Image Compressor</a>
+    <a href="json-formatter.html">{} JSON Formatter</a>
+    <a href="lorem-generator.html">📄 Lorem Generator</a>
+    <a href="percentage-calc.html">% Percentage Calc</a>
+    <a href="bmi-calculator.html">⚖️ BMI Calculator</a>
+    <a href="age-calculator.html">🎂 Age Calculator</a>
+    <a href="unit-converter.html">🔄 Unit Converter</a>
+   <a href="color-studio.html" style="background:linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">🎨 Color Studio</a>
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
+
+  <div class="main-content">
+    <button class="btn btn-dark m-3 rounded-pill" onclick="toggleSidebar()">☰ Menu</button>
+
+    <div class="container py-3">
+
+      <div class="tool-header gradient-1">
+        <h2>🎨 Color Studio Pro for Developers</h2>
+        <p class="mb-0 opacity-75">Picker, Mixer, Gradient Generator & 24 Beautiful Backgrounds - Copy CSS in 1 click</p>
+      </div>
+
+      <div class="tool-wrapper">
+
+        <!-- SECTION 1: COLOR PICKER -->
+        <h5 class="fw-bold mt-2">1. Color Picker & Converter</h5>
+        <div class="row g-3">
+          <div class="col-md-3 text-center">
+            <input type="color" id="mainColor" value="#667eea" class="form-control form-control-color w-100" style="height:100px;" oninput="updatePicker()">
+            <p class="small mt-2">Pick Color</p>
+          </div>
+          <div class="col-md-9">
+            <div class="row g-2">
+              <div class="col-12 col-md-4">
+                <label class="small fw-bold">HEX</label>
+                <div class="input-group">
+                  <input id="hexVal" class="form-control fw-bold" readonly>
+                  <button class="btn btn-dark" onclick="copyVal('hexVal')">Copy</button>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <label class="small fw-bold">RGB</label>
+                <div class="input-group">
+                  <input id="rgbVal" class="form-control fw-bold" readonly>
+                  <button class="btn btn-dark" onclick="copyVal('rgbVal')">Copy</button>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <label class="small fw-bold">HSL</label>
+                <div class="input-group">
+                  <input id="hslVal" class="form-control fw-bold" readonly>
+                  <button class="btn btn-dark" onclick="copyVal('hslVal')">Copy</button>
+                </div>
+              </div>
+            </div>
+            <div class="card p-3 mt-3">
+              <p class="small mb-1">CSS Code:</p>
+              <code id="cssCode">background: #667eea;</code>
+            </div>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- SECTION 2: COLOR MIXER -->
+        <h5 class="fw-bold">2. Color Mixer - Blend Two Colors</h5>
+        <div class="row g-3 align-items-center">
+          <div class="col-5 col-md-3">
+            <label class="small fw-bold">Color 1</label>
+            <input type="color" id="mix1" value="#ff0000" class="form-control form-control-color w-100" oninput="mixColors()">
+          </div>
+          <div class="col-2 col-md-1 text-center">+</div>
+          <div class="col-5 col-md-3">
+            <label class="small fw-bold">Color 2</label>
+            <input type="color" id="mix2" value="#0000ff" class="form-control form-control-color w-100" oninput="mixColors()">
+          </div>
+          <div class="col-12 col-md-5">
+            <label class="small fw-bold">Mix Ratio: <span id="mixRatioText">50%</span></label>
+            <input type="range" id="mixRatio" min="0" max="100" value="50" class="form-range" oninput="mixColors()">
+            <div id="mixedResult" class="color-box mt-2"></div>
+            <p class="small text-center mt-1 fw-bold" id="mixedHex">#800080</p>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- SECTION 3: GRADIENT GENERATOR -->
+        <h5 class="fw-bold">3. Gradient Generator for Website Backgrounds</h5>
+        <div class="row g-3">
+          <div class="col-md-4">
+            <label class="small fw-bold">Color 1</label>
+            <input type="color" id="grad1" value="#667eea" class="form-control form-control-color w-100" oninput="makeGradient()">
+          </div>
+          <div class="col-md-4">
+            <label class="small fw-bold">Color 2</label>
+            <input type="color" id="grad2" value="#764ba2" class="form-control form-control-color w-100" oninput="makeGradient()">
+          </div>
+          <div class="col-md-4">
+            <label class="small fw-bold">Direction: <span id="degText">90deg</span></label>
+            <input type="range" id="gradDeg" min="0" max="360" value="90" class="form-range" oninput="makeGradient()">
+            <select id="gradType" class="form-select mt-2" onchange="makeGradient()">
+              <option value="linear">Linear Gradient</option>
+              <option value="radial">Radial Gradient</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="gradientPreview" class="mt-3"></div>
+
+        <div class="card bg-dark text-white p-3 mt-3">
+          <div class="d-flex justify-content-between align-items-center">
+            <code id="gradientCSS" style="color:#a5ff90;">background: linear-gradient(90deg, #667eea, #764ba2);</code>
+            <button class="btn btn-sm btn-light rounded-pill" onclick="copyVal('gradientCSS')">Copy CSS</button>
+          </div>
+        </div>
+
+        <hr class="my-4">
+
+        <!-- SECTION 4: BEAUTIFUL PRESETS -->
+        <h5 class="fw-bold">4. 24 Beautiful Backgrounds - Click to Copy CSS</h5>
+        <p class="small opacity-75">Perfect for developer website headers, buttons, cards</p>
+        <div class="row g-3" id="presetContainer">
+          <!-- Presets will be generated by JS -->
+        </div>
+
+      </div>
+    </div>
+    
+   <footer class="footer-pro text-center mt-5">
+     <a href="../index.html">Home</a> |
+     <a href="../pages/about.html">About</a> |
+     <a href="../pages/contact.html">Contact</a>|
+     <a href="../pages/privacy.html">Privacy</a>|
+     <a href="../pages/faq.html">FAQS</a>
+     <p class="small mt-2 opacity-75">© 2026 Tools Hub Pro - 13 Tools</p>
+   </footer>
+    
+  </div>
+
+  <script src="../js/main.js"></script>
+  <script>
+    // Color picker functions
+    function hexToRgb(hex){
+      let r=parseInt(hex.slice(1,3),16), g=parseInt(hex.slice(3,5),16), b=parseInt(hex.slice(5,7),16);
+      return `rgb(${r}, ${g}, ${b})`;
+    }
+    function hexToHsl(hex){
+      let r=parseInt(hex.slice(1,3),16)/255, g=parseInt(hex.slice(3,5),16)/255, b=parseInt(hex.slice(5,7),16)/255;
+      let max=Math.max(r,g,b), min=Math.min(r,g,b);
+      let h,s,l=(max+min)/2;
+      if(max==min){ h=s=0; } else {
+        let d=max-min; s=l>0.5? d/(2-max-min) : d/(max+min);
+        switch(max){ case r: h=(g-b)/d+(g<b?6:0); break; case g: h=(b-r)/d+2; break; case b: h=(r-g)/d+4; break; }
+        h/=6;
+      }
+      return `hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
+    }
+    function updatePicker(){
+      let hex=document.getElementById('mainColor').value;
+      document.getElementById('hexVal').value=hex;
+      document.getElementById('rgbVal').value=hexToRgb(hex);
+      document.getElementById('hslVal').value=hexToHsl(hex);
+      document.getElementById('cssCode').innerText=`background: ${hex};`;
+    }
+
+    // Mixer
+    function mixColors(){
+      let c1=document.getElementById('mix1').value;
+      let c2=document.getElementById('mix2').value;
+      let ratio=parseInt(document.getElementById('mixRatio').value);
+      document.getElementById('mixRatioText').innerText=ratio+"%";
+      let r1=parseInt(c1.slice(1,3),16), g1=parseInt(c1.slice(3,5),16), b1=parseInt(c1.slice(5,7),16);
+      let r2=parseInt(c2.slice(1,3),16), g2=parseInt(c2.slice(3,5),16), b2=parseInt(c2.slice(5,7),16);
+      let r=Math.round(r1*(1-ratio/100)+r2*(ratio/100));
+      let g=Math.round(g1*(1-ratio/100)+g2*(ratio/100));
+      let b=Math.round(b1*(1-ratio/100)+b2*(ratio/100));
+      let mixed=`#${r.toString(16).padStart(2,'0')}${g.toString(16).padStart(2,'0')}${b.toString(16).padStart(2,'0')}`;
+      document.getElementById('mixedResult').style.background=mixed;
+      document.getElementById('mixedHex').innerText=mixed;
+    }
+
+    // Gradient generator
+    function makeGradient(){
+      let c1=document.getElementById('grad1').value;
+      let c2=document.getElementById('grad2').value;
+      let deg=document.getElementById('gradDeg').value;
+      let type=document.getElementById('gradType').value;
+      document.getElementById('degText').innerText=deg+"deg";
+      let css="";
+      if(type=="linear") css=`linear-gradient(${deg}deg, ${c1}, ${c2})`;
+      else css=`radial-gradient(circle, ${c1}, ${c2})`;
+      document.getElementById('gradientPreview').style.background=css;
+      document.getElementById('gradientCSS').innerText=`background: ${css};`;
+    }
+
+    // Preset beautiful gradients
+    const presets=[
+      "linear-gradient(90deg, #667eea, #764ba2)",
+      "linear-gradient(90deg, #ff9a9e, #fecfef)",
+      "linear-gradient(90deg, #ffecd2, #fcb69f)",
+      "linear-gradient(90deg, #a1c4fd, #c2e9fb)",
+      "linear-gradient(90deg, #f6d365, #fda085)",
+      "linear-gradient(90deg, #84fab0, #8fd3f4)",
+      "linear-gradient(90deg, #fa709a, #fee140)",
+      "linear-gradient(90deg, #43e97b, #38f9d7)",
+      "linear-gradient(90deg, #fa8bff, #2bd2ff, #2bff88)",
+      "linear-gradient(90deg, #ff0844, #ffb199)",
+      "linear-gradient(90deg, #00c6ff, #0072ff)",
+      "linear-gradient(90deg, #f857a6, #ff5858)",
+      "linear-gradient(90deg, #654ea3, #eaafc8)",
+      "linear-gradient(90deg, #11998e, #38ef7d)",
+      "linear-gradient(90deg, #fc4a1a, #f7b733)",
+      "linear-gradient(90deg, #c94b4b, #4b134f)",
+      "linear-gradient(90deg, #0f0c29, #302b63, #24243e)",
+      "linear-gradient(90deg, #000000, #434343)",
+      "linear-gradient(90deg, #ee0979, #ff6a00)",
+      "linear-gradient(90deg, #7b4397, #dc2430)",
+      "linear-gradient(90deg, #2193b0, #6dd5ed)",
+      "linear-gradient(90deg, #cc2b5e, #753a88)",
+      "linear-gradient(90deg, #42275a, #734b6d)",
+      "linear-gradient(90deg, #141e30, #243b55)"
+    ];
+
+    function loadPresets(){
+      let container=document.getElementById('presetContainer');
+      presets.forEach((g,i)=>{
+        let div=document.createElement('div');
+        div.className="col-6 col-md-3";
+        div.innerHTML=`<div class="gradient-card" style="background:${g}" onclick="copyPreset('${g}')"><span>Copy</span></div>`;
+        container.appendChild(div);
+      });
+    }
+    function copyPreset(g){
+      navigator.clipboard.writeText(`background: ${g};`);
+      alert("Copied: " + g);
+    }
+    function copyVal(id){
+      let txt=document.getElementById(id).value || document.getElementById(id).innerText;
+      navigator.clipboard.writeText(txt);
+      alert("Copied: " + txt);
+    }
+
+    // Init
+    updatePicker();
+    mixColors();
+    makeGradient();
+    loadPresets();
+  </script>
+</body>
+</html>

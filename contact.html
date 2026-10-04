@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Tools Hub Pro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+    <a href="../index.html">🏠 Home</a>
+    <a href="about.html">ℹ️ About</a>
+    <a href="contact.html" class="active" style="background: linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">📧 Contact</a>
+    <a href="privacy.html">🔒 Privacy</a>
+    <a href="faq.html">❓ FAQ</a>
+    <p class="small opacity-50 mt-3 mb-1">ALL TOOLS - 13</p>
+    <a href="../tools/word-counter.html">📝 Word Counter</a>
+    <a href="../tools/case-converter.html">🔤 Case Converter</a>
+    <a href="../tools/password-generator.html">🔐 Password Generator</a>
+    <a href="../tools/stopwatch.html">⏱️ Stopwatch</a>
+    <a href="../tools/qr-generator.html">📱 QR Generator</a>
+    <a href="../tools/image-compressor.html">🖼️ Image Compressor</a>
+    <a href="../tools/json-formatter.html">{} JSON Formatter</a>
+    <a href="../tools/lorem-generator.html">📄 Lorem Generator</a>
+    <a href="../tools/percentage-calc.html">% Percentage Calc</a>
+    <a href="../tools/bmi-calculator.html">⚖️ BMI Calculator</a>
+    <a href="../tools/age-calculator.html">🎂 Age Calculator</a>
+    <a href="../tools/unit-converter.html">🔄 Unit Converter</a>
+    <a href="../tools/color-studio.html">🎨 Color Studio Pro</a>
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
+
+  <div class="main-content">
+    <button class="btn btn-dark m-3 rounded-pill" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="container py-3">
+
+      <div class="tool-header gradient-3">
+        <h2>📧 Contact Us</h2>
+        <p class="mb-0 opacity-75">We reply within 24 hours</p>
+      </div>
+
+      <div class="tool-wrapper">
+        <div class="row g-4">
+          <div class="col-md-7">
+            <h5 class="fw-bold">Send a Message</h5>
+            
+            <div data-fs-success class="alert alert-success" style="display:none;">✅ Message sent! We will reply within 24 hours.</div>
+            <div data-fs-error class="alert alert-danger" style="display:none;"></div>
+
+            <form id="my-form">
+              <div class="mb-3">
+                <label class="small fw-bold">Your Name</label>
+                <input type="text" name="name" data-fs-field class="form-control" required placeholder="Enter your name">
+                <span data-fs-error="name" class="small text-danger"></span>
+              </div>
+
+              <div class="mb-3">
+                <label class="small fw-bold">Your Email</label>
+                <input type="email" name="email" data-fs-field class="form-control" required placeholder="you@example.com">
+                <span data-fs-error="email" class="small text-danger"></span>
+              </div>
+
+              <div class="mb-3">
+                <label class="small fw-bold">Subject</label>
+                <select name="subject" data-fs-field class="form-select">
+                  <option>Bug Report</option>
+                  <option>Feature Request</option>
+                  <option>New Tool Idea</option>
+                  <option>Business Inquiry</option>
+                  <option>Other</option>
+                </select>
+              </div>
+
+              <div class="mb-3">
+                <label class="small fw-bold">Message</label>
+                <textarea name="message" data-fs-field class="form-control" rows="5" required placeholder="Write your message here..."></textarea>
+                <span data-fs-error="message" class="small text-danger"></span>
+              </div>
+
+              <button type="submit" data-fs-submit-btn class="btn-gradient w-100">Send Message 🚀</button>
+            </form>
+
+          </div>
+          <div class="col-md-5">
+            <div class="card p-4 bg-dark text-white">
+              <h5>📍 Contact Info</h5>
+              <p class="small opacity-75 mt-3 mb-1">Email:</p>
+              <p class="fw-bold">superlegit901@gmail.com</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+   <footer class="footer-pro text-center mt-5">
+        <a href="../index.html">Home</a> | 
+        <a href="about.html">About</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="privacy.html">Privacy</a>|
+        <a href="faq.html">FAQS</a>
+        <p class="small mt-2 opacity-75">© 2026 Tools Hub Pro - 13 Tools</p>
+      </footer>
+
+
+  
+
+  <!-- FORMSPREE AJAX SDK - NO REDIRECT, WORKS 100% -->
+  <script>
+    window.formspree = window.formspree || function () { (formspree.q = formspree.q || []).push(arguments); };
+    formspree('initForm', { formElement: '#my-form', formId: 'xnpnkwjd' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stopwatch - Tools Hub Pro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .timer-display{
+      font-size: 3.5rem;
+      font-weight: 800;
+      letter-spacing: 2px;
+      font-variant-numeric: tabular-nums;
+    }
+    .lap-list{
+      max-height: 250px;
+      overflow-y: auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../pages/about.html">ℹ️ About</a>
+    <a href="../pages/contact.html">📧 Contact</a>
+    <a href="../pages/privacy.html">🔒 Privacy</a>
+    <a href="../pages/faq.html">❓ FAQ</a>
+    <p class="small opacity-50 mt-3 mb-1">ALL TOOLS - 13</p>
+    <a href="word-counter.html">📝 Word Counter</a>
+    <a href="case-converter.html">🔤 Case Converter</a>
+    <a href="password-generator.html">🔐 Password Generator</a>
+    <a href="stopwatch.html" class="active" style="background: linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">⏱️ Stopwatch</a>
+    <a href="qr-generator.html">📱 QR Generator</a>
+    <a href="image-compressor.html">🖼️ Image Compressor</a>
+    <a href="json-formatter.html">{} JSON Formatter</a>
+    <a href="lorem-generator.html">📄 Lorem Generator</a>
+    <a href="percentage-calc.html">% Percentage Calc</a>
+    <a href="bmi-calculator.html">⚖️ BMI Calculator</a>
+    <a href="age-calculator.html">🎂 Age Calculator</a>
+    <a href="unit-converter.html">🔄 Unit Converter</a>
+    <a href="color-studio.html">🎨 Color Studio Pro</a>
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
+
+  <div class="main-content">
+    <button class="btn btn-dark m-3 rounded-pill" onclick="toggleSidebar()">☰ Menu</button>
+
+    <div class="container py-3">
+
+      <div class="tool-header gradient-4">
+        <h2>⏱️ Stopwatch Pro</h2>
+        <p class="mb-0 opacity-75">Accurate timer with lap and milliseconds</p>
+      </div>
+
+      <div class="tool-wrapper text-center">
+
+        <div id="display" class="timer-display">00:00:00.00</div>
+
+        <div class="d-flex gap-2 justify-content-center mt-4 flex-wrap">
+          <button id="startBtn" class="btn-gradient px-4" onclick="startStop()">Start</button>
+          <button class="btn btn-dark rounded-pill px-4" onclick="lap()">Lap</button>
+          <button class="btn btn-outline-dark rounded-pill px-4" onclick="reset()">Reset</button>
+        </div>
+
+        <div class="mt-4 text-start">
+          <h6 class="fw-bold">Laps</h6>
+          <ul id="laps" class="list-group lap-list"></ul>
+          <p id="noLap" class="small opacity-50">No laps yet. Click Lap while running.</p>
+        </div>
+
+      </div>
+
+    </div>
+    
+   <footer class="footer-pro text-center mt-5">
+     <a href="../index.html">Home</a> |
+     <a href="../pages/about.html">About</a> |
+     <a href="../pages/contact.html">Contact</a>|
+     <a href="../pages/privacy.html">Privacy</a>|
+     <a href="../pages/faq.html">FAQS</a>
+     <p class="small mt-2 opacity-75">© 2026 Tools Hub Pro - 13 Tools</p>
+   </footer>
+    
+  </div>
+  
+  <script src="../js/main.js"></script>
+  <script>
+    let startTime = 0;
+    let elapsedTime = 0;
+    let timerInterval = null;
+    let running = false;
+    let lapCount = 0;
+
+    function formatTime(ms){
+      let hours = Math.floor(ms / 3600000);
+      let minutes = Math.floor((ms % 3600000) / 60000);
+      let seconds = Math.floor((ms % 60000) / 1000);
+      let centiseconds = Math.floor((ms % 1000) / 10);
+
+      return (
+        String(hours).padStart(2,'0') + ":" +
+        String(minutes).padStart(2,'0') + ":" +
+        String(seconds).padStart(2,'0') + "." +
+        String(centiseconds).padStart(2,'0')
+      );
+    }
+
+    function updateDisplay(){
+      let current = Date.now() - startTime + elapsedTime;
+      document.getElementById('display').innerText = formatTime(current);
+    }
+
+    function startStop(){
+      let btn = document.getElementById('startBtn');
+      if(!running){
+        // Start
+        running = true;
+        startTime = Date.now();
+        timerInterval = setInterval(updateDisplay, 10);
+        btn.innerText = "Stop";
+        btn.classList.remove('btn-gradient');
+        btn.classList.add('btn-danger','rounded-pill');
+      } else {
+        // Stop
+        running = false;
+        clearInterval(timerInterval);
+        elapsedTime += Date.now() - startTime;
+        btn.innerText = "Start";
+        btn.classList.add('btn-gradient');
+        btn.classList.remove('btn-danger','rounded-pill');
+      }
+    }
+
+    function lap(){
+      if(!running) return;
+      lapCount++;
+      let current = Date.now() - startTime + elapsedTime;
+      let timeStr = formatTime(current);
+
+      let li = document.createElement('li');
+      li.className = "list-group-item d-flex justify-content-between";
+      li.innerHTML = `<span class="fw-bold">Lap ${lapCount}</span> <span>${timeStr}</span>`;
+      
+      document.getElementById('laps').prepend(li);
+      document.getElementById('noLap').style.display = "none";
+    }
+
+    function reset(){
+      clearInterval(timerInterval);
+      running = false;
+      startTime = 0;
+      elapsedTime = 0;
+      lapCount = 0;
+      document.getElementById('display').innerText = "00:00:00.00";
+      document.getElementById('laps').innerHTML = "";
+      document.getElementById('noLap').style.display = "block";
+      let btn = document.getElementById('startBtn');
+      btn.innerText = "Start";
+      btn.className = "btn-gradient px-4";
+    }
+  </script>
+</body>
+</html>

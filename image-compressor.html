@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Image Compressor - Tools Hub Pro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../pages/about.html">ℹ️ About</a>
+    <a href="../pages/contact.html">📧 Contact</a>
+    <a href="../pages/privacy.html">🔒 Privacy</a>
+    <p class="small opacity-50 mt-3 mb-1">ALL TOOLS</p>
+    <a href="word-counter.html">📝 Word Counter</a>
+    <a href="case-converter.html">🔤 Case Converter</a>
+    <a href="password-generator.html">🔐 Password Generator</a>
+    <a href="stopwatch.html">⏱️ Stopwatch</a>
+    <a href="qr-generator.html">📱 QR Generator</a>
+    <a href="image-compressor.html">🖼️ Image Compressor</a>
+    <a href="json-formatter.html">{} JSON Formatter</a>
+    <a href="lorem-generator.html">📄 Lorem Generator</a>
+    <a href="percentage-calc.html">% Percentage Calc</a>
+    <a href="bmi-calculator.html">⚖️ BMI Calculator</a>
+    <a href="age-calculator.html">🎂 Age Calculator</a>
+    <a href="unit-converter.html">🔄 Unit Converter</a>
+<a href="color-studio.html" style="background:linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">🎨 Color Studio</a>
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
+
+  <div class="main-content">
+    <button class="btn btn-dark m-3 rounded-pill" onclick="toggleSidebar()">☰ Menu</button>
+
+    <div class="container py-3">
+      <div class="tool-header gradient-6">
+        <h2>🖼️ Image Compressor Pro</h2>
+        <p class="mb-0 opacity-75">Compress, resize, convert to JPEG / PNG / WebP with quality control</p>
+      </div>
+
+      <div class="tool-wrapper">
+
+        <!-- Upload -->
+        <label class="fw-bold mb-2">1. Upload Image</label>
+        <input type="file" id="imgInput" accept="image/*" class="form-control mb-4">
+
+        <!-- Preview -->
+        <div class="row">
+          <div class="col-md-6 mb-3">
+            <p class="fw-bold">Original Preview</p>
+            <img id="preview" class="img-fluid rounded border" style="max-height:280px; display:none;">
+            <p class="small mt-2">Original Size: <span id="origSize">0 KB</span></p>
+            <p class="small">Original Dimension: <span id="origDim">-</span></p>
+          </div>
+          <div class="col-md-6 mb-3">
+            <p class="fw-bold">Compressed Preview</p>
+            <canvas id="canvas" class="img-fluid rounded border" style="max-height:280px; display:none;"></canvas>
+            <p class="small mt-2">New Size: <span id="newSize">0 KB</span></p>
+          </div>
+        </div>
+
+        <!-- Controls - NO AUTO SYNC -->
+        <div class="row g-3 mt-2">
+          <div class="col-6 col-md-3">
+            <label class="small fw-bold">Width (px)</label>
+            <input type="number" id="width" class="form-control" placeholder="e.g. 800">
+          </div>
+          <div class="col-6 col-md-3">
+            <label class="small fw-bold">Height (px)</label>
+            <input type="number" id="height" class="form-control" placeholder="e.g. 600">
+          </div>
+          <div class="col-6 col-md-3">
+            <label class="small fw-bold">Convert To</label>
+            <select id="format" class="form-select">
+              <option value="image/jpeg">JPEG</option>
+              <option value="image/png">PNG</option>
+              <option value="image/webp">WebP</option>
+            </select>
+          </div>
+          <div class="col-6 col-md-3">
+            <label class="small fw-bold">Quality: <span id="qualityVal">70</span>%</label>
+            <input type="range" id="quality" min="10" max="100" value="70" class="form-range" oninput="document.getElementById('qualityVal').innerText=this.value">
+          </div>
+        </div>
+
+        <div class="d-flex gap-2 mt-4">
+          <button class="btn-gradient flex-fill" onclick="compressImage()">Compress Now</button>
+          <button class="btn btn-dark rounded-pill flex-fill" onclick="downloadImage()">Download</button>
+        </div>
+
+      </div>
+
+    </div>
+    
+   <footer class="footer-pro text-center mt-5">
+     <a href="../index.html">Home</a> |
+     <a href="../pages/about.html">About</a> |
+     <a href="../pages/contact.html">Contact</a>|
+     <a href="../pages/privacy.html">Privacy</a>|
+     <a href="../pages/faq.html">FAQS</a>
+     <p class="small mt-2 opacity-75">© 2026 Tools Hub Pro - 13 Tools</p>
+   </footer>
+    
+  </div>
+
+ 
+  
+
+  <script src="../js/main.js"></script>
+  <script>
+    let imgInput = document.getElementById('imgInput');
+    let preview = document.getElementById('preview');
+    let canvas = document.getElementById('canvas');
+    let ctx = canvas.getContext('2d');
+    let origWidth, origHeight;
+    let compressedDataUrl = "";
+
+    // Upload handler - only sets initial values once
+    imgInput.addEventListener('change', function(e){
+      let file = e.target.files[0];
+      if(!file) return;
+      document.getElementById('origSize').innerText = (file.size/1024).toFixed(1) + " KB";
+      preview.style.display = "block";
+      preview.src = URL.createObjectURL(file);
+      preview.onload = () => {
+        origWidth = preview.naturalWidth;
+        origHeight = preview.naturalHeight;
+        document.getElementById('origDim').innerText = origWidth + " x " + origHeight;
+        document.getElementById('width').value = origWidth;
+        document.getElementById('height').value = origHeight;
+      }
+    });
+
+    // Compress - width and height are now fully manual, no auto change
+    function compressImage(){
+      if(!preview.src){ alert("Please upload image first"); return; }
+      let w = parseInt(document.getElementById('width').value) || origWidth;
+      let h = parseInt(document.getElementById('height').value) || origHeight;
+      let quality = parseInt(document.getElementById('quality').value) / 100;
+      let format = document.getElementById('format').value;
+
+      canvas.width = w;
+      canvas.height = h;
+      canvas.style.display = "block";
+      ctx.clearRect(0,0,w,h);
+      ctx.drawImage(preview, 0, 0, w, h);
+
+      if(format == "image/png"){
+        compressedDataUrl = canvas.toDataURL("image/png");
+      } else {
+        compressedDataUrl = canvas.toDataURL(format, quality);
+      }
+
+      let approxSize = Math.round((compressedDataUrl.length * 3/4)/1024);
+      document.getElementById('newSize').innerText = approxSize + " KB";
+    }
+
+    function downloadImage(){
+      if(!compressedDataUrl){ alert("Compress first!"); return; }
+      let format = document.getElementById('format').value;
+      let ext = format.split('/')[1];
+      let a = document.createElement('a');
+      a.download = `compressed-${Date.now()}.${ext}`;
+      a.href = compressedDataUrl;
+      a.click();
+    }
+  </script>
+</body>
+</html>

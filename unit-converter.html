@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Unit Converter</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+    <a href="../index.html">🏠 Home</a>
+    <a href="../pages/about.html">ℹ️ About</a>
+    <a href="../pages/contact.html">📧 Contact</a>
+    <a href="../pages/privacy.html">🔒 Privacy</a>
+    <p class="small opacity-50 mt-3 mb-1">ALL TOOLS</p>
+    <a href="word-counter.html">📝 Word Counter</a>
+    <a href="case-converter.html">🔤 Case Converter</a>
+    <a href="password-generator.html">🔐 Password Generator</a>
+    <a href="stopwatch.html">⏱️ Stopwatch</a>
+    <a href="qr-generator.html">📱 QR Generator</a>
+    <a href="image-compressor.html">🖼️ Image Compressor</a>
+    <a href="json-formatter.html">{} JSON Formatter</a>
+    <a href="lorem-generator.html">📄 Lorem Generator</a>
+    <a href="percentage-calc.html">% Percentage Calc</a>
+    <a href="bmi-calculator.html">⚖️ BMI Calculator</a>
+    <a href="age-calculator.html">🎂 Age Calculator</a>
+    <a href="unit-converter.html">🔄 Unit Converter</a>
+<a href="color-studio.html" style="background:linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">🎨 Color Studio</a>
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
+
+  <div class="main-content">
+    <button class="btn btn-dark m-3 rounded-pill" onclick="toggleSidebar()">☰ Menu</button>
+    <div class="container py-3">
+      <div class="tool-header gradient-12">
+        <h2>🔄 Unit Converter</h2>
+        <p class="mb-0 opacity-75">How to use: Choose category → Type value → See result instantly</p>
+      </div>
+
+      <div class="tool-wrapper">
+
+        <!-- Step 1: Category -->
+        <label class="fw-bold small">STEP 1: Choose what to convert</label>
+        <select id="cat" class="form-select mb-3" onchange="loadUnits()">
+          <option value="length">📏 Length (meter, km, mile, feet)</option>
+          <option value="weight">⚖️ Weight (kg, gram, pound)</option>
+          <option value="temp">🌡️ Temperature (Celsius, Fahrenheit)</option>
+        </select>
+
+        <div class="row g-3 align-items-end">
+          <!-- From -->
+          <div class="col-md-5">
+            <label class="fw-bold small">FROM:</label>
+            <select id="from" class="form-select mb-2"></select>
+            <input type="number" id="val" class="form-control form-control-lg" value="1" oninput="convertUnit()" placeholder="Enter value">
+          </div>
+
+          <!-- Swap button -->
+          <div class="col-md-2 text-center">
+            <button class="btn btn-dark rounded-circle" onclick="swapUnits()">⇄</button>
+            <p class="small mt-1 mb-0">Swap</p>
+          </div>
+
+          <!-- To -->
+          <div class="col-md-5">
+            <label class="fw-bold small">TO:</label>
+            <select id="to" class="form-select mb-2"></select>
+            <input type="text" id="result" class="form-control form-control-lg fw-bold bg-light" readonly placeholder="Result">
+          </div>
+        </div>
+
+        <!-- Explanation box -->
+        <div class="card bg-light p-3 mt-4">
+          <p class="mb-0 small" id="explanation">Example: 1 kilometer = 1000 meters</p>
+        </div>
+
+      </div>
+    </div>
+    
+   <footer class="footer-pro text-center mt-5">
+     <a href="../index.html">Home</a> |
+     <a href="../pages/about.html">About</a> |
+     <a href="../pages/contact.html">Contact</a>|
+     <a href="../pages/privacy.html">Privacy</a>|
+     <a href="../pages/faq.html">FAQS</a>
+     <p class="small mt-2 opacity-75">© 2026 Tools Hub Pro - 13 Tools</p>
+   </footer>
+    
+  </div>
+  
+  
+
+  <script src="../js/main.js"></script>
+  <script>
+    // All units with real values
+    const units = {
+      length: {
+        meter: 1,
+        kilometer: 1000,
+        centimeter: 0.01,
+        millimeter: 0.001,
+        mile: 1609.34,
+        feet: 0.3048,
+        inch: 0.0254,
+        yard: 0.9144
+      },
+      weight: {
+        kilogram: 1,
+        gram: 0.001,
+        milligram: 0.000001,
+        pound: 0.453592,
+        ounce: 0.0283495
+      },
+      temp: { celsius: "c", fahrenheit: "f", kelvin: "k" }
+    };
+
+    function loadUnits(){
+      let cat = document.getElementById('cat').value;
+      let from = document.getElementById('from');
+      let to = document.getElementById('to');
+      from.innerHTML=""; to.innerHTML="";
+
+      Object.keys(units[cat]).forEach(u=>{
+        from.innerHTML += `<option value="${u}">${u}</option>`;
+        to.innerHTML += `<option value="${u}">${u}</option>`;
+      });
+
+      // Set default TO to second option so it's different from FROM
+      if(to.options.length > 1) to.selectedIndex = 1;
+      convertUnit();
+    }
+
+    function convertUnit(){
+      let cat = document.getElementById('cat').value;
+      let from = document.getElementById('from').value;
+      let to = document.getElementById('to').value;
+      let val = parseFloat(document.getElementById('val').value);
+      if(isNaN(val)){ document.getElementById('result').value=""; return; }
+
+      let res = 0;
+      if(cat=='temp'){
+        let c = val;
+        if(from=='fahrenheit') c=(val-32)*5/9;
+        if(from=='kelvin') c=val-273.15;
+        if(to=='celsius') res=c;
+        if(to=='fahrenheit') res=c*9/5+32;
+        if(to=='kelvin') res=c+273.15;
+      } else {
+        // Convert to base unit then to target
+        let base = val * units[cat][from];
+        res = base / units[cat][to];
+      }
+
+      document.getElementById('result').value = res.toFixed(4);
+      document.getElementById('explanation').innerText = `${val} ${from} = ${res.toFixed(4)} ${to}`;
+    }
+
+    function swapUnits(){
+      let from = document.getElementById('from');
+      let to = document.getElementById('to');
+      let temp = from.value;
+      from.value = to.value;
+      to.value = temp;
+      convertUnit();
+    }
+
+    // Auto convert when user changes units
+    document.getElementById('from').addEventListener('change', convertUnit);
+    document.getElementById('to').addEventListener('change', convertUnit);
+
+    // Load on start
+    loadUnits();
+  </script>
+</body>
+</html>

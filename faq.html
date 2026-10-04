@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ - Frequently Asked Questions - Tools Hub Pro</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+
+  <!-- Sidebar Full - 13 Tools -->
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+
+    <a href="../index.html">🏠 Home</a>
+    <a href="about.html">ℹ️ About</a>
+    <a href="contact.html">📧 Contact</a>
+    <a href="privacy.html">🔒 Privacy</a>
+    <a href="faq.html" class="active" style="background: linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">❓ FAQ</a>
+
+    <p class="small opacity-50 mt-3 mb-1">ALL TOOLS - 13</p>
+
+    <a href="../tools/word-counter.html">📝 Word Counter</a>
+    <a href="../tools/case-converter.html">🔤 Case Converter</a>
+    <a href="../tools/password-generator.html">🔐 Password Generator</a>
+    <a href="../tools/stopwatch.html">⏱️ Stopwatch</a>
+    <a href="../tools/qr-generator.html">📱 QR Generator</a>
+    <a href="../tools/image-compressor.html">🖼️ Image Compressor</a>
+    <a href="../tools/json-formatter.html">{} JSON Formatter</a>
+    <a href="../tools/lorem-generator.html">📄 Lorem Generator</a>
+    <a href="../tools/percentage-calc.html">% Percentage Calc</a>
+    <a href="../tools/bmi-calculator.html">⚖️ BMI Calculator</a>
+    <a href="../tools/age-calculator.html">🎂 Age Calculator</a>
+    <a href="../tools/unit-converter.html">🔄 Unit Converter</a>
+    <a href="../tools/color-studio.html">🎨 Color Studio Pro</a>
+
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <button class="btn btn-dark m-3 rounded-pill" onclick="toggleSidebar()">☰ Menu</button>
+
+    <div class="container py-3">
+
+      <div class="tool-header gradient-5">
+        <h2>❓ Frequently Asked Questions</h2>
+        <p class="mb-0 opacity-75">Everything you need to know about ToolsHub Pro</p>
+      </div>
+
+      <div class="tool-wrapper">
+
+        <div class="accordion" id="faqAccordion">
+
+          <!-- Q1 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q1">
+                1. Is ToolsHub Pro completely free?
+              </button>
+            </h2>
+            <div id="q1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes! All 13 tools are 100% free forever. No login, no subscription, no hidden charges. Just open and use.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q2">
+                2. Do I need internet to use the tools?
+              </button>
+            </h2>
+            <div id="q2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                More of our 13 tools work offline after first load. These offline tools are: Word Counter, Case Converter, Password Generator, Stopwatch, JSON Formatter, Lorem Generator, Percentage Calc, BMI Calculator, Age Calculator, Unit Converter, and Color Studio Pro. Only QR Generator and Image Compressor need internet for now.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q3">
+                3. Is my data safe? Do you save my files?
+              </button>
+            </h2>
+            <div id="q3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Your data never leaves your device. For tools like Image Compressor and JSON Formatter, everything is processed in your browser. We do NOT upload, save or track your files or text. Check our Privacy Policy for more.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q4 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q4">
+                4. What is Color Studio Pro used for?
+              </button>
+            </h2>
+            <div id="q4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Color Studio Pro is for developers and designers. It has 4 features in one page: Color Picker (get HEX, RGB, HSL), Color Mixer (blend 2 colors), Gradient Generator (create linear/radial gradients with CSS code), and 24 Beautiful Preset Backgrounds you can copy in one click for your website, buttons, and headers.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q5 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q5">
+                5. How to copy gradient CSS for my website?
+              </button>
+            </h2>
+            <div id="q5" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Very easy. Go to Color Studio Pro, pick two colors and direction, then you will see <code>background: linear-gradient(...)</code>. Click "Copy CSS" button and paste it into your website CSS. Or click any of the 24 preset gradients - it will copy automatically.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q6 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q6">
+                6. Can I use these tools on mobile phone?
+              </button>
+            </h2>
+            <div id="q6" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Yes! ToolsHub Pro is fully responsive. It works perfectly on Android, iPhone, tablet and desktop. With dark/light mode for comfortable use.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q7 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q7">
+                7. How do I report a bug or request a new tool?
+              </button>
+            </h2>
+            <div id="q7" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Go to Contact Us page, select "Bug Report" or "New Tool Idea" and send us a message. We reply within 24 hours. We love new tool ideas from users  around the world!
+              </div>
+            </div>
+          </div>
+
+          <!-- Q8 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q8">
+                8. Do you have API for developers?
+              </button>
+            </h2>
+            <div id="q8" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Not yet, but we are working on it. Currently all tools are frontend only. API will be available in future updates. Follow us for updates.
+              </div>
+            </div>
+          </div>
+
+          <!-- Q9 -->
+          <div class="accordion-item">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#q9">
+                9. How many tools do you have now?
+              </button>
+            </h2>
+            <div id="q9" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                We now have <strong>13 tools</strong>: Word Counter, Case Converter, Password Generator, Stopwatch, QR Generator, Image Compressor, JSON Formatter, Lorem Generator, Percentage Calculator, BMI Calculator, Age Calculator, Unit Converter, and Color Studio Pro. More tools coming soon.
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="card bg-dark text-white p-4 mt-4 text-center">
+          <h5>Still have questions?</h5>
+          <p class="small opacity-75">Contact us and we will answer you within 24 hours</p>
+          <a href="contact.html" class="btn btn-light rounded-pill px-4">Contact Us →</a>
+        </div>
+
+      </div>
+
+      <footer class="footer-pro text-center mt-5">
+        <a href="../index.html">Home</a> | 
+        <a href="about.html">About</a> | 
+        <a href="contact.html">Contact</a> | 
+        <a href="privacy.html">Privacy</a> | 
+        <a href="faq.html">FAQ</a>
+        <p class="small mt-2 opacity-75">© 2026 Tools Hub Pro - 13 Free Tools</p>
+      </footer>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/main.js"></script>
+</body>
+</html>
