@@ -59,3 +59,13 @@ body.dark .navbar-pro{background:rgba(15,20,35,0.9);border-color:#222}
 
 .gradient-13{ background: linear-gradient(135deg, #667eea, #764ba2); color: white; }
 .accordion-button{ font-weight: 600; }
+
+/* ===== Adsterra Banner Centering ===== */
+.ad-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 25px auto;
+    overflow: hidden;
+}
