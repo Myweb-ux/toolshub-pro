@@ -15,14 +15,20 @@
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
-<div id="sidebar" class="sidebar">
-<div class="d-flex justify-content-between align-items-center"><h4 class="m-0">Tools Hub Pro</h4><button class="btn btn-sm btn-light" onclick="toggleSidebar()">✕</button></div>
+    <!-- Sidebar Full - 13 Tools -->
+  <div id="sidebar" class="sidebar">
+    <div class="d-flex justify-content-between align-items-center mb-3">
+      <h4 class="fw-bold m-0">ToolsHub Pro</h4>
+      <button class="btn btn-sm btn-light rounded-circle" onclick="toggleSidebar()">✕</button>
+    </div>
+
     <a href="../index.html">🏠 Home</a>
-    <a href="about.html">ℹ️ About</a>
-    <a href="contact.html" class="active" style="background: linear-gradient(90deg,#667eea,#764ba2); color:white; border-radius:10px;">📧 Contact</a>
+    <a href="about.html" class="active">ℹ️ About</a>
+    <a href="contact.html">📧 Contact</a>
     <a href="privacy.html">🔒 Privacy</a>
-    <a href="faq.html">❓ FAQ</a>
+
     <p class="small opacity-50 mt-3 mb-1">ALL TOOLS - 13</p>
+
     <a href="../tools/word-counter.html">📝 Word Counter</a>
     <a href="../tools/case-converter.html">🔤 Case Converter</a>
     <a href="../tools/password-generator.html">🔐 Password Generator</a>
@@ -36,8 +42,10 @@
     <a href="../tools/age-calculator.html">🎂 Age Calculator</a>
     <a href="../tools/unit-converter.html">🔄 Unit Converter</a>
     <a href="../tools/color-studio.html">🎨 Color Studio Pro</a>
-<button onclick="toggleTheme()" class="btn btn-sm btn-secondary mt-3 w-100">Dark / Light Mode</button>
-</div>
+
+    <hr class="my-3 opacity-25">
+    <button onclick="toggleTheme()" class="btn btn-outline-light w-100 rounded-pill">Dark / Light</button>
+  </div>
 
 <div class="main-content">
 <button class="btn btn-primary m-2" onclick="toggleSidebar()">Menu</button>
